@@ -1,0 +1,18 @@
+name: Feature request
+description: Propose a workflow, policy, or integration improvement
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Workflow problem
+      description: What repeated manual work or risk does this create?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome and safety boundary
+    validations:
+      required: true

@@ -1,0 +1,6 @@
+tests:
+  - name: approval control exists
+    contains:
+      - "Always ask for approval"
+    not_contains:
+      - "skip approval"

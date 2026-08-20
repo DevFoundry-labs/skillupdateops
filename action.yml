@@ -1,0 +1,43 @@
+name: SkillUpdateOps Check
+description: Detect and policy-check upstream AI agent skill changes without executing candidates
+author: DevFoundry Labs
+branding:
+  icon: shield
+  color: purple
+inputs:
+  command:
+    description: SkillOps command and arguments
+    required: false
+    default: check
+  project:
+    description: Project directory relative to the workspace
+    required: false
+    default: .
+outputs:
+  exit-code:
+    description: SkillOps exit code (0 clean, 2 changed, 3 blocked, 4 drift)
+    value: ${{ steps.run.outputs.exit-code }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - name: Install SkillUpdateOps
+      shell: bash
+      run: python -m pip install --disable-pip-version-check "$GITHUB_ACTION_PATH"
+    - id: run
+      name: Inspect skill updates
+      shell: bash
+      env:
+        SKILLOPS_COMMAND: ${{ inputs.command }}
+        SKILLOPS_PROJECT: ${{ inputs.project }}
+      run: |
+        set +e
+        read -r -a args <<< "$SKILLOPS_COMMAND"
+        skillops --project "$SKILLOPS_PROJECT" --json "${args[@]}" | tee skillops-result.json
+        code=${PIPESTATUS[0]}
+        echo "exit-code=$code" >> "$GITHUB_OUTPUT"
+        if [[ "$code" -ne 0 ]]; then
+          exit "$code"
+        fi
