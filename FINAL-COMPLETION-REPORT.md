@@ -155,21 +155,25 @@ the timed section, and not a guarantee for other hardware or large repositories.
 ### CI
 
 Workflow: `.github/workflows/ci.yml` and `.github/workflows/security.yml`
-Result: Pending initial remote run.
+Result: Passed on protected `main`: quality, composite Action smoke test, and all nine Python 3.11–3.13
+matrix cells across Ubuntu, Windows, and macOS. Security passed dependency audit and CodeQL.
+CI: https://github.com/DevFoundry-labs/skillupdateops/actions/runs/32381536953
+Security: https://github.com/DevFoundry-labs/skillupdateops/actions/runs/32381536867
 
 ## GitHub Configuration
 
-- Description and topics: pending publication
-- Issues and Discussions: pending publication
-- Branch protection: pending publication
-- Dependabot alerts and security updates: pending publication
+- Public description and eight relevant repository topics configured
+- Issues and Discussions enabled
+- `main` protected with required code-owner review, stale-review dismissal, last-push approval,
+  conversation resolution, linear history, and force-push/deletion prevention
+- Dependabot alerts, automated security fixes, and private vulnerability reporting enabled
 - CodeQL: configured in repository workflow
 
 ## Release
 
 Tag: `v1.0.0`
 Release URL: https://github.com/DevFoundry-labs/skillupdateops/releases/tag/v1.0.0
-Status: Pending publication
+Status: Published; wheel and source distribution attached. Release build passed tests and packaging.
 
 ## Known Limitations
 
@@ -179,6 +183,8 @@ Status: Pending publication
 - Executable fixtures require Docker and depend on Docker's host security boundary.
 - Full 100-skill check time depends heavily on filesystem, corpus size, and Git/network latency.
 - No hosted fleet dashboard; v1.0 is local-first CLI and GitHub Action software.
+- The stable `astral-sh/setup-uv@v6` Action emits GitHub's Node 20 transition warning; GitHub
+  executes it on Node 24 and Dependabot will update the channel when its maintainer publishes one.
 
 ## Files Generated
 
@@ -190,8 +196,8 @@ Status: Pending publication
 
 ## Final Status
 
-READY LOCALLY — remote publication and CI verification pending.
+READY — built, tested, security-scanned, published, released, and remotely verified.
 
 ## Blockers
 
-None for local release. Remote status will be updated after publication.
+None.
