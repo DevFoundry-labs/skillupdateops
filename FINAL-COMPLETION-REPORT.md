@@ -183,8 +183,6 @@ Status: Published; wheel and source distribution attached. Release build passed 
 - Executable fixtures require Docker and depend on Docker's host security boundary.
 - Full 100-skill check time depends heavily on filesystem, corpus size, and Git/network latency.
 - No hosted fleet dashboard; v1.0 is local-first CLI and GitHub Action software.
-- The stable `astral-sh/setup-uv@v6` Action emits GitHub's Node 20 transition warning; GitHub
-  executes it on Node 24 and Dependabot will update the channel when its maintainer publishes one.
 
 ## Files Generated
 
